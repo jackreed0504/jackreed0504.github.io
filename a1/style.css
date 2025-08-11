@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Boldonse&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap");
+
+body {
+  font-family: "Google Sans Code", monospace;
+  background-image: linear-gradient(rgb(1, 65, 111), rgb(73, 183, 242));
+  margin-top: 2rem;
+  margin-left: 5rem;
+}
+
+a {
+  font-family: Afacad Flux;
+  font-size: larger;
+}
+
+h1 {
+  font-family: Boldonse;
+  text-transform: capitalize;
+  font-size: x-large;
+  text-align: center;
+}
+h2 {
+  font-family: Afacad Flux;
+  font-size: x-large;
+  text-align: center;
+}
+h3 {
+  font-family: Afacad Flux;
+  font-size: larger;
+  text-align: center;
+}
+nav {
+  text-align: center;
+  justify-content: center;
+}
+
+ol {
+  margin: 0 auto;
+  max-width: 50%;
+}
+
+li {
+  font-weight: bold;
+  font-family: Afacad Flux;
+  font-size: large;
+}
+
+p {
+  font-weight: normal;
+}
+
+li > ol > li {
+  font-weight: normal;
+}
+
+li > ol {
+  padding: 1rem;
+  max-width: unset;
+}
