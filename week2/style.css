@@ -1,1 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+PL:wght@100..400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap");
 
+body {
+  font-family: "Google Sans Code", monospace;
+  background-image: linear-gradient(rgb(160, 222, 255), rgb(73, 183, 242));
+}
+
+h1 {
+  font-family: "Playwrite PL", cursive;
+  font-size: 2rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2rem;
+  color: slategray;
+}
+h2 {
+  font-size: 1.25rem;
+}
