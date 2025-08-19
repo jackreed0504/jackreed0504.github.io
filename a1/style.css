@@ -5,7 +5,46 @@ body {
   font-family: "Google Sans Code", monospace;
   background-image: linear-gradient(rgb(1, 65, 111), rgb(73, 183, 242));
   margin-top: 2rem;
-  margin-left: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  padding-top: 1rem;
+}
+
+img {
+  width: 20rem;
+  border: solid white;
+  margin: 0 auto;
+}
+
+.landscapeScreenshots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.portraitScreenshots {
+  width: 12rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 70%;
+}
+
+.actionsList {
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -23,20 +62,17 @@ h2 {
   font-family: Afacad Flux;
   font-size: x-large;
   text-align: center;
+  font-weight: bold;
 }
 h3 {
   font-family: Afacad Flux;
   font-size: larger;
   text-align: center;
+  font-weight: bold;
 }
 nav {
   text-align: center;
   justify-content: center;
-}
-
-ol {
-  margin: 0 auto;
-  max-width: 50%;
 }
 
 li {
