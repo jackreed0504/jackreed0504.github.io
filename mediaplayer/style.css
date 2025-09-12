@@ -1,0 +1,67 @@
+/* store my custom variables */
+:root {
+  --colour-01: #fff2ea;
+  --colour-02: black;
+  --colour-03: #a13955;
+  --colour-04: coral;
+  --border: solid #e4b92b 2px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  line-height: 1.6;
+  background-color: var(--colour-03);
+  color: var(--colour-01);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+nav {
+  border: var(--border);
+  padding: 1rem;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: var(--border);
+}
+
+main {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.mediaPlayerSection {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#mediaPlayer {
+  max-width: 100%;
+}
+
+.mediaPlayerControlContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+#playPauseButton {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+#timelineProgress {
+  flex: 1;
+}
