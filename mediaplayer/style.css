@@ -1,5 +1,8 @@
 /* store my custom variables */
 :root {
+  /* my colour pallete is taken from */
+  /* it's called */
+  /* i picked this colour pallete bacause */
   --colour-01: #fff2ea;
   --colour-02: black;
   --colour-03: #a13955;
@@ -12,19 +15,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
   line-height: 1.6;
-  background-color: var(--colour-03);
+  /* background-color: var(--colour-03); */
+  background-image: linear-gradient(rgb(36, 36, 36), rgb(16, 16, 16));
   color: var(--colour-01);
+  font-family: helvetica;
 }
 
 h1 {
   font-size: 2rem;
-}
-
-nav {
-  border: var(--border);
-  padding: 1rem;
 }
 
 footer {
@@ -42,8 +41,19 @@ main {
 }
 
 .mediaPlayerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin: 0 auto;
+}
+
+#timeline {
+  display: flex;
+  flex-direction: row;
+  width: 50rem;
+  align-items: baseline;
+  gap: 1rem;
 }
 
 #mediaPlayer {
@@ -52,9 +62,22 @@ main {
 
 .mediaPlayerControlContainer {
   display: flex;
+  flex-direction: row;
+  width: 25%;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.nowPlayingContainer {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  width: 8rem;
+  height: 3rem;
+  /* vertical-align: top;  */
 }
 
 #playPauseButton {
@@ -64,4 +87,62 @@ main {
 
 #timelineProgress {
   flex: 1;
+}
+
+button {
+  border-radius: 2rem;
+}
+
+#skipBackButton {
+  padding: 0.5rem;
+}
+
+#skipNextButton {
+  padding: 0.5rem;
+}
+
+ol {
+  counter-reset: tracklist-counter;
+}
+
+li::before {
+  counter-increment: tracklist-counter;
+  content: counters(tracklist-counter, ".");
+}
+
+li {
+  padding: 1rem;
+  cursor: pointer;
+  width: 50rem;
+  display: flex;
+  list-style-position: inside;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+li:hover {
+  background-color: #272626;
+  border-radius: 0.5rem;
+}
+
+.infoButton {
+  width: 1rem;
+  border-radius: 0;
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+}
+
+.infoButton:hover {
+  filter: brightness(0.5);
+  cursor: pointer;
+}
+
+#infoDialog {
+  background-color: rgb(50, 49, 49);
+  padding: 1rem;
+  text-align: center;
+  border-radius: 1rem;
+  border: none;
 }

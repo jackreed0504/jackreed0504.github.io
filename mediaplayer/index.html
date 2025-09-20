@@ -13,31 +13,85 @@
       <h1>My Media Player</h1>
     </header>
 
-    <nav>
-      <a href="">Home</a>
-      <a href="">Media Player</a>
-      <a href="">About</a>
-      <a href="">Contact</a>
-    </nav>
-
     <!-- this is my main -->
     <main>
+      <ol id="trackList">
+        <li id="song">
+          Hes
+          <button class="infoButton">
+            <img src="./assets/info.png" alt="info" />
+          </button>
+        </li>
+        <li id="song">
+          Dry Down feat. Ben Snaath
+          <button class="infoButton">
+            <img src="./assets/info.png" alt="info" />
+          </button>
+        </li>
+        <li id="song">
+          Leapt
+          <button class="infoButton">
+            <img src="./assets/info.png" />
+          </button>
+        </li>
+        <li id="song">
+          Water Feature
+          <button class="infoButton">
+            <img src="./assets/info.png" />
+          </button>
+        </li>
+      </ol>
+
+      <dialog id="infoDialog">
+        <p id="infoText">Info</p>
+        <button id="dialogCloseButton" autofocus>Close</button>
+      </dialog>
+
       <!-- this is my media player section -->
       <section class="mediaPlayerSection">
-        <video id="mediaPlayer" controls>
+        <audio id="mediaPlayer" controls>
           <source
-            src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/miac.mp4"
-            type="video/mp4"
+            id="mediaSource"
+            src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/p-hase_Hes.mp3"
+            type="audio/mp3"
           />
-          This browser doesnt support the video element.
-        </video>
+          This browser doesnt support the audio element.
+        </audio>
         <!-- media player controls -->
         <div class="mediaPlayerControlContainer">
-          <button id="playPauseButton">
-            ▶
-            <!-- ⏸ -->
+          <button id="skipBackButton">
+            <img
+              src="./assets/skip-to-start--v2.png"
+              alt="skip back button"
+              id="skipNextIcon"
+            />
           </button>
+          <button id="playPauseButton">
+            <img
+              src="./assets/play--v2.png"
+              alt="play button"
+              id="playPauseIcon"
+            />
+          </button>
+          <button id="skipNextButton">
+            <img
+              src="./assets/end--v2.png"
+              alt="skip next button"
+              id="skipNexttIcon"
+            />
+          </button>
+        </div>
+        <div id="timeline">
+          <div class="nowPlayingContainer">
+            <p id="currentSong">No Song Playing</p>
+          </div>
           <progress id="timelineProgress" max="100" value="0"></progress>
+          <!-- adding in a time feedback section : let users know how long the video is and the current time -->
+          <p class="timeContainer">
+            <span id="currentTimeFeedback">0:00</span>
+            /
+            <span id="totalTimeFeedback">4:30</span>
+          </p>
         </div>
       </section>
     </main>
