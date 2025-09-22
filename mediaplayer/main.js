@@ -341,10 +341,10 @@ audioElement.addEventListener("play", (e) => {
 
 // store credits info about each song in an array
 const infoArray = [
-  "Credits: <br> Writer: John Doe <br> Producer: Jane Doe",
-  "Credits: <br> Writers: John Doe, Ben Snaath <br> Producer: John Doe",
-  "Credits: <br> Writer: Jim Doe <br> Producer: Play Doe",
-  "Credits: <br> Writer: Jane Doe <br> Guitar: Kieth Richards <br> Producer: John Doe",
+  "Credits: <br> Writer: P-Hase <br> Producer: P-Hase <br> Performer: P-Hase",
+  "Credits: <br> Writer: P-Hase, Ben Snaath <br> Producer: P-Hase <br> Performer: P-Hase, Ben Snaath",
+  "Credits: <br> Writer: P-Hase <br> Producer: P-Hase <br> Perfomer: P-Hase",
+  "Credits: <br> Writer: P-Hase <br> Producer: P-Hase <br> Performer: P-Hase",
 ];
 
 // add a click event listener to each individual info button. Save the index of this button
