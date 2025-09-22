@@ -106,7 +106,7 @@ document.addEventListener("keydown", (e) => {
   // check if key is the space bar
   if (e.key === " ") {
     // stop the page from scrolling down
-    event.preventDefault();
+    e.preventDefault();
     // call the playpause function
     playPause();
   }
@@ -214,7 +214,7 @@ function updateTimeline() {
   let timePercent = (audioElement.currentTime / audioElement.duration) * 100;
   // make timeline value this percentage
   // added isFinite if-else check, if value not finite changes to 0. This prevents infinite values (which were returning an error in console)
-  if ((timeline.value = isFinite(timePercent))) {
+  if (isFinite(timePercent)) {
     timeline.value = timePercent;
   } else {
     timeline.value = 0;
@@ -308,13 +308,15 @@ function shuffleNext() {
 const listItems = Array.from(trackList.children);
 
 trackList.addEventListener("click", (e) => {
-  // when click song on tracklist, first save the current song to the song history array
-  songHistory.push(currentSongNumber);
-  // get item clicked of tracklist array
   const clickedItem = listItems.indexOf(e.target);
-  // update the current song to the tracklist array item clicked
-  updateCurrentSong(clickedItem);
-  currentSongNumber = clickedItem;
+  if (clickedItem >= 0) {
+    // when click song on tracklist, first save the current song to the song history array
+    songHistory.push(currentSongNumber);
+    // get item clicked of tracklist array
+    // update the current song to the tracklist array item clicked
+    updateCurrentSong(clickedItem);
+    currentSongNumber = clickedItem;
+  }
 });
 
 // this function will highlight the name of the track currently playing
