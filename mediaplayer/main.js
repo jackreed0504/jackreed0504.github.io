@@ -214,7 +214,11 @@ function updateTimeline() {
   let timePercent = (audioElement.currentTime / audioElement.duration) * 100;
   // make timeline value this percentage
   // added isFinite if-else check, if value not finite changes to 0. This prevents infinite values (which were returning an error in console)
-  timeline.value = isFinite(timePercent) ? timePercent : 0;
+  if ((timeline.value = isFinite(timePercent))) {
+    timeline.value = timePercent;
+  } else {
+    timeline.value = 0;
+  }
   updateCurrentTime();
 }
 
