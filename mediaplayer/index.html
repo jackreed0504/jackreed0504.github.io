@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Media Player Baseline</title>
+    <title>Jackify</title>
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
   </head>
   <body>
     <header>
-      <h1>My Media Player</h1>
+      <h1>Jackify</h1>
     </header>
-
     <!-- this is my main -->
     <main>
+      <!-- This displays the track list of the album, so users can view and select songs -->
       <ol id="trackList">
         <li id="song">
           Hes
@@ -42,6 +42,9 @@
         </li>
       </ol>
 
+      <!-- This dialog modal opens when the user clicks the info button
+      It gives users information about writers credits, ensuring artists are credited for their work 
+      and providing information for curious users. -->
       <dialog id="infoDialog">
         <p id="infoText">Info</p>
         <button id="dialogCloseButton" autofocus>Close</button>
@@ -59,6 +62,7 @@
         </audio>
         <!-- media player controls -->
         <div class="mediaPlayerControlContainer">
+          <!-- Skip back and next enables users to navigate the playlist easily  -->
           <button id="skipBackButton">
             <img
               src="./assets/skip-to-start--v2.png"
@@ -80,11 +84,26 @@
               id="skipNexttIcon"
             />
           </button>
+          <!-- Shuffle button enables users to randomise the playlist order, a popular and desired
+           feature in modern audio players -->
+          <button id="shuffleButton">
+            <img
+              src="./assets/shuffle.png"
+              alt="shuffle button"
+              id="shuffleIcon"
+            />
+          </button>
         </div>
         <div id="timeline">
+          <!-- This shows the album art next to the song, which often adds context to the 
+           music and which many listeners like to view -->
+          <img src="./assets/no_art.jpg" alt="" id="albumArt" />
+          <!-- This "Now Playing Container" displays the current song title to the user,
+           so they know the context of the audio playing -->
           <div class="nowPlayingContainer">
             <p id="currentSong">No Song Playing</p>
           </div>
+          <!-- Timeline progress bar to add a visual representation of the progress through the current track -->
           <progress id="timelineProgress" max="100" value="0"></progress>
           <!-- adding in a time feedback section : let users know how long the video is and the current time -->
           <p class="timeContainer">
@@ -92,16 +111,63 @@
             /
             <span id="totalTimeFeedback">4:30</span>
           </p>
+          <img src="./assets/audio.png" alt="audio icon" id="volIcon" />
+          <!-- volume slider so user can control the volume of the audio. creates a css variable called '--amount'
+           which is used to colour a percentage of the volume slider a different colour for user feedback -->
+          <input
+            type="range"
+            id="volumeSlider"
+            min="0"
+            max="100"
+            value="100"
+            oninput="volumeSlider.style.setProperty('--amount', volumeSlider.value + '%')"
+          />
         </div>
       </section>
     </main>
-
+    <!-- This is the footer section, attributing all media used in the webpage -->
     <footer>
-      <p>&copy; 2025 Media Player Website. All rights reserved.</p>
-      <a href="https://icons8.com/icon/59862/play">Play</a> icon by
-      <a href="https://icons8.com">Icons8</a>
-      <a href="https://icons8.com/icon/61012/pause">Pause</a> icon by
-      <a href="https://icons8.com">Icons8</a>
+      <p>&copy; 2025 Jackify. All rights reserved.</p>
+      <div>
+        <a href="https://icons8.com/icon/59862/play">Play</a> icon by
+        <a href="https://icons8.com">Icons8</a>,
+        <a href="https://icons8.com/icon/61012/pause">Pause</a> icon by
+        <a href="https://icons8.com">Icons8</a>,
+        <a href="https://icons8.com/icon/9m6KWcXqAqBT/end">Skip Next</a> icon by
+        <a href="https://icons8.com">Icons8</a>,
+        <a href="https://icons8.com/icon/YTSDoX6z463S/skip-to-start"
+          >Skip Back</a
+        >
+        icon by
+        <a href="https://icons8.com">Icons8</a>,
+        <a href="https://icons8.com/icon/77/info">Info</a> icon by
+        <a href="https://icons8.com">Icons8</a>,
+        <a href="https://icons8.com/icon/91479/shuffle">Shuffle</a> icon by
+        <a href="https://icons8.com">Icons8</a>,
+      </div>
+      <div>
+        <a href="https://icons8.com/icon/reqgj3e1uKBy/audio">Audio</a> icon by
+        <a href="https://icons8.com">Icons8</a>,
+        <a href="https://icons8.com/icon/91635/no-audio">No Audio</a> icon by
+        <a href="https://icons8.com">Icons8</a>, Images from
+        <a href="https://unsplash.com/">Unsplash</a> by
+        <a
+          href="https://unsplash.com/photos/red-flowers-on-a-blue-and-white-background-CZp37PNaJaE"
+          >Eugene Golovesov</a
+        >,
+        <a
+          href="https://unsplash.com/photos/underwater-view-with-light-reflections-and-bubbles-hNIN6pCh7oY"
+          >Maahid Photos</a
+        >,
+        <a
+          href="https://unsplash.com/photos/blue-leaves-with-round-shapes-against-dark-background-_-2mBRoODyk"
+          >Siobhan Flannery</a
+        >,
+        <a
+          href="https://unsplash.com/photos/white-flowers-with-green-blurry-background-nKN1-45kUCo"
+          >Klara Kulikova</a
+        >
+      </div>
     </footer>
   </body>
 </html>

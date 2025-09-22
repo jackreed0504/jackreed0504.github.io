@@ -13,6 +13,12 @@ const currentSong = document.querySelector("#currentSong");
 let infoModal = document.getElementById("infoDialog");
 const infoButton = document.querySelectorAll(".infoButton");
 const infoText = document.querySelector("#infoText");
+const albumArt = document.querySelector("#albumArt");
+const shuffleButton = document.querySelector("#shuffleButton");
+let shuffle = "false";
+let songHistory = [];
+const volumeSlider = document.querySelector("#volumeSlider");
+const volIcon = document.querySelector("#volIcon");
 
 // when JS loads remove default controls
 audioElement.removeAttribute("controls");
@@ -24,22 +30,32 @@ audioElement.removeAttribute("controls");
 audioElement.addEventListener("canplay", updateTotalTime);
 
 function updateTotalTime() {
+  // save the duration of the loaded audio file in seconds
   let audioSeconds = audioElement.duration;
+  // divide it by minutes (60s) and round it down to the nearest whole number
   let totalMin = Math.floor(audioSeconds / 60);
+  // get the remaininder after dividing by 60, and round it down to nearest whole number
   let totalSec = Math.floor(audioSeconds % 60);
+  // if seconds is below 10, add and extra 0 so it is two digits
   if (totalSec < 10) {
     totalSec = "0" + totalSec;
   }
+  // make the text content of the total time the minutes:seconds
   totalTimeText.textContent = `${totalMin}:${totalSec}`;
 }
 
 function updateCurrentTime() {
+  // save the current time of playback in seconds
   let audioSeconds = audioElement.currentTime;
+  // divide it by minutes (60s) and round it down to the nearest whole number
   let totalMin = Math.floor(audioSeconds / 60);
+  // get the remaininder after dividing by 60, and round it down to nearest whole number
   let totalSec = Math.floor(audioSeconds % 60);
+  // if seconds is below 10, add and extra 0 so it is two digits
   if (totalSec < 10) {
     totalSec = "0" + totalSec;
   }
+  // make the text content of the total time the minutes:seconds
   currentTimeText.textContent = `${totalMin}:${totalSec}`;
 }
 
@@ -96,8 +112,16 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// call function when skip back is pressed
-skipBackButton.addEventListener("click", (e) => {
+/* 
+Skip Back behaviour:
+- Check if song is first in playlist (array)
+- If not, go back 1 songnumber in array
+- Call media button function to make sure play/pause button is set appropriately
+- If yes, loop around to last song in array
+- Call media button function to make sure play/pause button is set appropriately
+*/
+
+function skipBack() {
   // check if current song is first in array
   if (currentSongNumber > 0) {
     // if not, go back one track
@@ -112,11 +136,43 @@ skipBackButton.addEventListener("click", (e) => {
     // call function to check if media is playing, and adjust button image accordingly
     mediaButton();
   }
+}
+
+/* 
+since shuffle was introduced, this should be the new behaviour for skip back button:
+- check if there are any songs in history array
+- if there are, play the last song in the array
+- if there aren't, play the last song in the playlist
+*/
+
+// call function when skip back is pressed
+skipBackButton.addEventListener("click", (e) => {
+  // check if there are any songs in the song history array
+  if (songHistory.length > 0) {
+    // if there are, save the last song in the array to a variable and delete it from the array
+    const lastSong = songHistory.pop();
+    // make the current song the last song played
+    updateCurrentSong(lastSong);
+    currentSongNumber = lastSong;
+  } else {
+    // if not, call the regular skip back function (which just cycles through the playlist...)
+    skipBack();
+  }
 });
 
-// call function when skip forward is pressed
-skipNextButton.addEventListener("click", (e) => {
-  // check if current song is last in array
+/* 
+Skip Next behaviour:
+- Check if song is last in playlist (array)
+- If not, go forward 1 songnumber in array
+- Call media button function to make sure play/pause button is set appropriately
+- If no, loop around to first song in array
+- Call media button function to make sure play/pause button is set appropriately
+*/
+
+function skipNext() {
+  // save the last song in array
+  songHistory.push(currentSongNumber);
+  // check if song is last in array
   if (currentSongNumber < songArray.length - 1) {
     // if not, go forward one track
     updateCurrentSong(currentSongNumber + 1);
@@ -130,6 +186,21 @@ skipNextButton.addEventListener("click", (e) => {
     // call function to check if media is playing, and adjust button image accordingly
     mediaButton();
   }
+}
+
+// SkipNextButton should go to next song if shuffle is off, and go to a random song if shuffle is on
+
+// call function when skip forward is pressed
+skipNextButton.addEventListener("click", (e) => {
+  // check if shuffle is set to true
+  if (shuffle === "true") {
+    // if so, play the shuffle next function
+    shuffleNext();
+  } else {
+    // otherwise, play the regular skip next function
+    skipNext();
+  }
+  // call skipnext function
 });
 
 /*
@@ -139,12 +210,14 @@ i should be able to click and jump to a particular time
 */
 
 function updateTimeline() {
-  // find percentage of total time
+  // calculate percentage of total time
   let timePercent = (audioElement.currentTime / audioElement.duration) * 100;
+  // make timeline value this perfentage
   timeline.value = timePercent;
   updateCurrentTime();
 }
 
+// event listener on audio element calls updateTimeline function whenever time changes in audio element
 audioElement.addEventListener("timeupdate", updateTimeline);
 
 // find when i click my timeline and then jump to appropriate time
@@ -183,26 +256,58 @@ function updateCurrentSong(songNumber) {
   audioElement.play();
 }
 
-audioElement.addEventListener("ended", playNextOnEnd);
+// call this function whenever a song has ended in the audio element
+audioElement.addEventListener("ended", (e) => {
+  // check if shuffle is enabled
+  if (shuffle === "true") {
+    // if so, call shuffle next function
+    shuffleNext();
+  } else {
+    // if not, call regular next song on end function
+    playNextOnEnd();
+  }
+});
 
 function playNextOnEnd() {
+  // save the last song in array
+  songHistory.push(currentSongNumber);
+  // check if current song is last in array
   if (currentSongNumber < songArray.length - 1) {
+    // if not, change the current song in array to the next one (current song + 1)
     updateCurrentSong(currentSongNumber + 1);
     currentSongNumber += 1;
   } else {
-    // loop back to start of array
+    // if not, loop back to the start of array
     updateCurrentSong(0);
     currentSongNumber = 0;
   }
 }
 
+/*
+Shuffle behaviour:
+- Create a random number between 0 and 3
+- change the current song number to that value
+*/
+
+function shuffleNext() {
+  // save the last song in array
+  songHistory.push(currentSongNumber);
+  // create a random number between 0 and 1, multiply it by 4 and round it down to the nearest whole number
+  const randomSong = Math.floor(Math.random() * 4);
+  // update the current song to this randomised value
+  updateCurrentSong(randomSong);
+  currentSongNumber = randomSong;
+}
+
 // Create an array from the tracklist
 const listItems = Array.from(trackList.children);
 
-// when click on array, get array item clicked
 trackList.addEventListener("click", (e) => {
+  // when click song on tracklist, first save the current song to the song history array
+  songHistory.push(currentSongNumber);
+  // get item clicked of tracklist array
   const clickedItem = listItems.indexOf(e.target);
-  // update the current song to the array item clicked
+  // update the current song to the tracklist array item clicked
   updateCurrentSong(clickedItem);
   currentSongNumber = clickedItem;
 });
@@ -216,7 +321,7 @@ function trackIndicator() {
   // find the array item of the track name currently playing
   let nowPlaying = listItems[currentSongNumber];
   //set the background colour and the border radius
-  nowPlaying.style.backgroundColor = "#272626";
+  nowPlaying.style.backgroundColor = "var(--colour-03)";
   nowPlaying.style.borderRadius = "0.5rem";
   // now call function to check if media is playing, and adjust button image accordingly
   mediaButton();
@@ -226,30 +331,93 @@ function trackIndicator() {
 audioElement.addEventListener("play", trackIndicator);
 
 // change currentSong text box to currently playing song
-// start function when audio element plays
+// call the function when audio element is playing
 audioElement.addEventListener("play", (e) => {
+  // save to a variable: the text content of the currently playing song in the tracklist array
   let songTitle = listItems[currentSongNumber].textContent;
+  // change the text content in the currentSong paragraph to the songTitle variable
   currentSong.textContent = songTitle;
 });
 
-// store infor about each song
+// store credits info about each song in an array
 const infoArray = [
-  "Writer: John Doe <br> Producer: Jane Doe",
-  "Writer: John Doe feat. Ben Snaath <br> Producer: John Doe",
-  "Writer: Jim Doe <br> Producer: Play Doe",
-  "Writer: Jane Doe <br> Guitar: Kieth Richards <br> Producer: John Doe",
+  "Credits: <br> Writer: John Doe <br> Producer: Jane Doe",
+  "Credits: <br> Writers: John Doe, Ben Snaath <br> Producer: John Doe",
+  "Credits: <br> Writer: Jim Doe <br> Producer: Play Doe",
+  "Credits: <br> Writer: Jane Doe <br> Guitar: Kieth Richards <br> Producer: John Doe",
 ];
 
-// show info modal when info button is clicked
+// add a click event listener to each individual info button. Save the index of this button
 infoButton.forEach((button, index) => {
   button.addEventListener("click", (e) => {
+    /* 
+    stopPropagation prevents the event from effecting other parent elements. 
+    The event was previously interrupting the audioElement.
+    */
     e.stopPropagation();
+    // show the info modal
     infoModal.showModal();
+    // change the content of the info modal to the infoArray content matching the selected button index
     infoText.innerHTML = infoArray[index];
   });
 });
 
-// check what song the info button was pressed on
+// close the info modal when close button is pressed
 document.getElementById("dialogCloseButton").addEventListener("click", () => {
   infoModal.close();
+});
+
+// store album art
+const artArray = [
+  "./assets/art_one.jpg",
+  "./assets/art_two.jpg",
+  "./assets/art_three.jpg",
+  "./assets/art_four.jpg",
+];
+
+// change album art to currently playing song
+// start function when audio element plays
+audioElement.addEventListener("play", (e) => {
+  // save the content of the artArray index matching the current song number
+  let currentArt = artArray[currentSongNumber];
+  // change the album art src to this content (url)
+  albumArt.src = currentArt;
+});
+
+// call function when shuffle button is pressed
+shuffleButton.addEventListener("click", (e) => {
+  // check if shuffle is enabled
+  if (shuffle === "false") {
+    // if it isnt, make the image darker for feedback, and change shuffle varable to true
+    shuffleButton.style.filter = "brightness(0.5)";
+    shuffle = "true";
+  } else {
+    // if it is, make the image full brightness for feedback, and change shuffle variable to false
+    shuffleButton.style.filter = "brightness(1)";
+    shuffle = "false";
+  }
+});
+
+// check for user input into the volume slider
+volumeSlider.addEventListener("input", (e) => {
+  // as audioelement volume value from 0-1, adjust the colume of the audio element to this value divided by 100
+  audioElement.volume = volumeSlider.value / 100;
+});
+
+// listen for click interaction with volume icon
+volIcon.addEventListener("click", (e) => {
+  // check if audioelement is muted
+  if (audioElement.muted === true) {
+    // if so, change muted to false
+    audioElement.muted = false;
+    // change icon src and alt text to audio (unmuted) icon
+    volIcon.src = "./assets/audio.png";
+    volIcon.alt = "audio icon";
+  } else {
+    // if not, change muted to true
+    audioElement.muted = true;
+    // change icon src and alt text to mute icon
+    volIcon.src = "./assets/mute.png";
+    volIcon.alt = "mute icon";
+  }
 });

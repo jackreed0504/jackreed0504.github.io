@@ -1,13 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
+
 /* store my custom variables */
+/* my colour pallete is taken from LoSpec.com */
+/* it's called Sunset Red Palette https://lospec.com/palette-list/sunset-red */
+/* i picked this colour pallete bacause the dark purples and reds lend it a cinematic
+feeling, evoking the experience of a premium entertainment experience. */
 :root {
-  /* my colour pallete is taken from */
-  /* it's called */
-  /* i picked this colour pallete bacause */
-  --colour-01: #fff2ea;
-  --colour-02: black;
-  --colour-03: #a13955;
-  --colour-04: coral;
-  --border: solid #e4b92b 2px;
+  --colour-01: #ffffff;
+  --colour-02: #0d101b;
+  --colour-03: #281a2d;
+  --colour-04: #af2747;
+  --amount: 100%;
 }
 
 body {
@@ -15,24 +18,31 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  line-height: 1.6;
-  /* background-color: var(--colour-03); */
-  background-image: linear-gradient(rgb(36, 36, 36), rgb(16, 16, 16));
+  line-height: 1.5;
+  /* i'm using a gradient in the background to create an immersive, 3D effect
+  to contribute to the cinematic, "premium entertainment" evocation */
+  background-image: linear-gradient(var(--colour-02), var(--colour-03));
   color: var(--colour-01);
-  font-family: helvetica;
+  /* geometric sans-serif font used for a clean, minimalist interface, highlighting simplicity, practicality, ease of use */
+  font-family: "League Spartan", Arial, Helvetica, sans-serif;
+}
+
+b {
+  font-weight: 500;
 }
 
 h1 {
   font-size: 2rem;
+  font-weight: 500;
 }
 
 footer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  text-align: center;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border: var(--border);
 }
 
 main {
@@ -52,8 +62,10 @@ main {
   display: flex;
   flex-direction: row;
   width: 50rem;
-  align-items: baseline;
+  align-items: center;
   gap: 1rem;
+  align-content: baseline;
+  vertical-align: middle;
 }
 
 #mediaPlayer {
@@ -61,6 +73,7 @@ main {
 }
 
 .mediaPlayerControlContainer {
+  /* use flexbox row and space-between to evenly distribute controls */
   display: flex;
   flex-direction: row;
   width: 25%;
@@ -71,36 +84,62 @@ main {
 }
 
 .nowPlayingContainer {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
-  width: 8rem;
-  height: 3rem;
-  /* vertical-align: top;  */
-}
-
-#playPauseButton {
-  padding: 1rem;
-  cursor: pointer;
-}
-
-#timelineProgress {
-  flex: 1;
+  /* put "now playing" text in a container with specified width to contain text, so it doesnt
+  affect width of other elements such as the timeline */
+  width: 7rem;
+  height: 1em;
+  line-height: 1rem;
+  padding-bottom: 3rem;
+  vertical-align: middle;
 }
 
 button {
   border-radius: 2rem;
+  background: none;
+  border: none;
+  background-color: var(--colour-04);
+  color: var(--colour-02);
+}
+/* the buttons have a skeuomorphic design (button background designed by me) */
+/* this gives them the familiar feeling of physical music playing devices */
+/* all the buttons have pointers for feedback, to make it clear they are clickable */
+#playPauseButton {
+  padding: 1rem;
+  cursor: pointer;
+  background-image: url("./assets/Button.png");
+  background-size: cover;
+}
+
+/* Make the button darker when pressed to provide tactile feedback to the user */
+#playPauseButton:active {
+  filter: brightness(0.5);
 }
 
 #skipBackButton {
   padding: 0.5rem;
+  cursor: pointer;
+  background-image: url("./assets/Button.png");
+  background-size: cover;
+}
+
+/* Make the button darker when pressed to provide tactile feedback to the user */
+#skipBackButton:active {
+  filter: brightness(0.5);
 }
 
 #skipNextButton {
   padding: 0.5rem;
+  cursor: pointer;
+  background-image: url("./assets/Button.png");
+  background-size: cover;
 }
 
+/* Make the button darker when pressed to provide tactile feedback to the user */
+#skipNextButton:active {
+  filter: brightness(0.5);
+}
+
+/* i had to use a counter to re-add the numbers on the list, as flexbox nullifies the numbering */
 ol {
   counter-reset: tracklist-counter;
 }
@@ -111,18 +150,20 @@ li::before {
 }
 
 li {
+  /* i made the list items a flexbox so that the info buttons could be placed on the opposite right side of the songs */
   padding: 1rem;
+  /* the list items have pointers on hover so the user knows they can be clicked */
   cursor: pointer;
   width: 50rem;
   display: flex;
-  list-style-position: inside;
   justify-content: center;
   gap: 1rem;
   margin: 0 auto;
 }
 
+/* give list items background colour/box on hover to provide feedback to the user */
 li:hover {
-  background-color: #272626;
+  background-color: var(--colour-03);
   border-radius: 0.5rem;
 }
 
@@ -134,15 +175,126 @@ li:hover {
   margin-left: auto;
 }
 
+/* make info buttons darker on hover, to provide user feedback, clarity of button function */
 .infoButton:hover {
   filter: brightness(0.5);
   cursor: pointer;
 }
 
+#shuffleButton {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* make shuffle button darker on hover, to provide user feedback, clarity of button function */
+#shuffleButton:hover {
+  filter: brightness(0.5);
+}
+
 #infoDialog {
-  background-color: rgb(50, 49, 49);
+  background-color: var(--colour-02);
   padding: 1rem;
   text-align: center;
   border-radius: 1rem;
   border: none;
+}
+
+#dialogCloseButton {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#dialogCloseButton:active {
+  filter: brightness(0.5);
+}
+
+#albumArt {
+  width: 5rem;
+}
+
+#volumeSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid var(--colour-02);
+  width: 150px;
+  height: 8px;
+  border-radius: 1rem;
+  /* var amount is released by the slider, so that percentage of slider is filled a different colour */
+  background: linear-gradient(
+    to right,
+    var(--colour-04),
+    var(--amount),
+    var(--colour-02) var(--amount)
+  );
+}
+
+/* We need to specify changes to the slider across different browsers, this is for chrome, edge, safari */
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  /* Skeuomorphic button handle, designed by me, for familiar look of physical hi-fi gear */
+  background: url("./assets/Button.png") no-repeat center center;
+  background-size: contain;
+  cursor: pointer;
+}
+
+/* Provide feedback when slider is being dragged by making it darker */
+#volumeSlider::-webkit-slider-thumb:active {
+  filter: brightness(0.5);
+}
+
+/* Slider thumb changes for FireFox */
+#volumeSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  /* Skeuomorphic button handle, designed by me, for familiar look of physical hi-fi gear */
+  background: url("./assets/Button.png") no-repeat center center;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}
+
+/* Provide feedback when slider is being dragged by making it darker */
+#volumeSlider::-moz-range-thumb:active {
+  filter: brightness(0.5);
+}
+
+#volIcon {
+  width: 1.1rem;
+  cursor: pointer;
+}
+
+/* volume icon gets darker on hover for user feedback */
+#volIcon:hover {
+  filter: brightness(0.5);
+}
+
+/* Changed the colour of timeline to be consistent with colour palette */
+#timelineProgress {
+  /* flex 1 enables timeline to take up all available space in container */
+  flex: 1;
+  height: 8px;
+  border: 1px solid var(--colour-02);
+  border-radius: 1rem;
+  /* specify background colour (only works on some browsers like firefox) */
+  background-color: var(--colour-02);
+}
+
+/* specify background colour and radius for chrome */
+#timelineProgress::-webkit-progress-bar {
+  background-color: var(--colour-02);
+  border-radius: 1rem;
+}
+
+/* specify progress colour for chrome */
+#timelineProgress::-webkit-progress-value {
+  background-color: var(--colour-04);
+  border-radius: 1rem;
+}
+
+/* specify progress colour for firefox */
+#timelineProgress::-moz-progress-bar {
+  background-color: var(--colour-04);
 }
