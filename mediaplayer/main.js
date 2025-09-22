@@ -309,6 +309,7 @@ const listItems = Array.from(trackList.children);
 
 trackList.addEventListener("click", (e) => {
   const clickedItem = listItems.indexOf(e.target);
+  // check if clicked item is larger or equal to 0. previously, clicking outside of the tracklist broke the audioplayer
   if (clickedItem >= 0) {
     // when click song on tracklist, first save the current song to the song history array
     songHistory.push(currentSongNumber);
