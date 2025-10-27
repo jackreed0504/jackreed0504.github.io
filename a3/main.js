@@ -21,7 +21,7 @@ for (let img = 1; img <= 100; img++) {
 /* i am using wheel event rather than scroll so that it doesn't use native scrolling,
 which was allowing the user to scroll at differnt speeds */
 // listen for wheel event
-// this change was suggested by copilot (i was initially using 'scroll' event)
+// this change was based on a suggestion by copilot (i was initially using 'scroll' event)
 window.addEventListener("wheel", (e) => {
   // prevent native scrolling
   e.preventDefault();
