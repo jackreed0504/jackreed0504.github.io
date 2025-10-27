@@ -6,9 +6,15 @@ body {
   height: 100%;
   /* hide the scrollbar as i want the user to interact via mousewheel */
   overflow: hidden;
+  /* i am using Monsterrat as the geometric type face has a sleek design, it professional looking 
+  while also basic, minimal and readable */
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
   /* The main scrolling animation will run frame by frame within the background image */
   /* i made the animation in blender */
+  /* this animation will create an immersive and unique experience to visitors, demonstrating
+  new and groundbreaking approaches to web design within this web designer portfolio site */
+  /* the animation zooms through a structure influenced by monument valley and MC Escher. This
+  style has appeared throughout my recent work and is a suitable represenation of my current style */
   background-image: url("./assets/1.png");
   background-size: cover;
   background-position: center;
@@ -28,7 +34,7 @@ h2 {
   color: white;
   font-weight: normal;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   letter-spacing: 3px;
 }
 
