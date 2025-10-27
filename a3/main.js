@@ -44,7 +44,8 @@ the user in my work */
 /* this function could be potentially beneficial for future projects as it is successfull in immersing and enticing
 viewers. it could also have the risk of sacrificing usability, as it doesnt allow text to be easily presented in a
 straghtforward, accessible digestable way, and it isn't always very performant (i had to store the images in an array
-to prevent flickering, for example) */
+to prevent flickering, for example). The website takes a long time to load first time and does tend to experience flickering
+on the first load, which is a serious problem for future applications of this interaction*/
 
 function scrollUp() {
   // check if frame number is below 100
