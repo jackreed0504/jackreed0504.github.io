@@ -50,8 +50,8 @@ on the first load, which is a serious problem for future applications of this in
 function scrollUp() {
   // check if frame number is below 100
   if (currentFrameNo < 100) {
-    // increase frame number by 0.25, so that the animation is slower
-    currentFrameNo = currentFrameNo + 0.25;
+    // increase frame number by 0.5, so that the animation is slower
+    currentFrameNo = currentFrameNo + 0.5;
   } else {
     // otherwise, set frame number to 100
     currentFrameNo = 100;
@@ -65,8 +65,8 @@ function scrollUp() {
 function scrollDown() {
   // check if frame number is above 1
   if (currentFrameNo > 1) {
-    // decrease frame number by 0.25, so that the animation is slower
-    currentFrameNo = currentFrameNo - 0.25;
+    // decrease frame number by 0.5, so that the animation is slower
+    currentFrameNo = currentFrameNo - 0.5;
   } else {
     // otherwise, set frame number to 1
     currentFrameNo = 1;
